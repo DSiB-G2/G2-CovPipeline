@@ -10,7 +10,7 @@ adapter:
 
 rule_parameters:
     bwa_index:
-        algorithm: "bwstw"
+        algorithm: "bwtsw"
     bwa_mem:
         sorting: "none"
     samtools_sort:
