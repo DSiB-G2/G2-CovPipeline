@@ -38,3 +38,15 @@ rule filter_vcf:
         extra=config["rule_parameters"]["filter_vcf"]["extra"],
     wrapper:
         "v1.21.1/bio/vcftools/filter"
+
+#rule wgs_fasta:
+#    input:
+#        vcf="results/vcf/{sample}.filtered.vcf",
+#        ref="data/reference/" + genome + ".fasta",
+#    output:
+#        "results/wgs/{sample}.fasta"
+#    conda:
+#        "../envs/wgs.yaml"
+#    shell:
+#        "cat {input.ref} | vcf-consensus {input.vcf} > {output}"
+

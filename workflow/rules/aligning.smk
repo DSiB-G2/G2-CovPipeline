@@ -22,6 +22,7 @@ rule bwa_mem:
     log:
         "logs/bwa_mem/{sample}.log",
     params:
+        extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
         sorting=config["rule_parameters"]["bwa_mem"]["sorting"],  # Can be 'none', 'samtools' or 'picard'.
     wrapper:
         "v1.21.1/bio/bwa/mem"
@@ -39,6 +40,24 @@ rule samtools_sort:
         extra=config["rule_parameters"]["samtools_sort"]["extra"],
     wrapper:
         "v1.21.1/bio/samtools/sort"
+
+rule samtools_fastq:
+    input:
+        "results/mapped/{sample}.sorted.bam",
+    output:
+        "results/fasta/{sample}.fasta",
+    log:
+        "logs/samtools_fastq/{sample}.log",
+    message:
+        ""
+    # Samtools takes additional threads through its option -@
+    threads: 2  # This value - 1 will be sent to -@
+    params:
+        outputtype="fasta",
+        extra="",
+    wrapper:
+        "v1.21.2/bio/samtools/fastx/"
+
 
 #qc
 rule samtools_index:

@@ -28,4 +28,4 @@ rule_parameters:
         caller: "-m"
         extra: "--ploidy 1 -v"
     filter_vcf:
-        extra: ""
+        extra: "--chr 1 --recode-INFO-all"

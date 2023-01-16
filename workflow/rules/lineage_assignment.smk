@@ -1,6 +1,6 @@
 rule seqtk_seq_fastq_to_fasta:
     input:
-        "results/trimmed/{sample}_1.trimmed.fastq",
+        "data/{sample}_R1_001.fastq",
     output:
         "results/lineage_assignment/{sample}.merged.fasta",
     log:
@@ -13,7 +13,7 @@ rule seqtk_seq_fastq_to_fasta:
 
 rule pangolin_la:
     input:
-        "results/lineage_assignment/{sample}.merged.fasta"
+        "results/fasta/{sample}.fasta",
     output:
         "results/lineage_assignment/{sample}.csv"
     conda:
