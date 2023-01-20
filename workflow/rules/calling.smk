@@ -18,7 +18,7 @@ rule bcftools_call:
     input:
         pileup="results/pileups/{sample}.pileup.bcf",
     output:
-        calls="results/mapped/{sample}.calls.vcf",
+        calls="results/vcf/{sample}.calls.vcf",
     params:
         caller=config["rule_parameters"]["bcftools_call"]["caller"],  # valid options include -c/--consensus-caller or -m/--multiallelic-caller
         extra=config["rule_parameters"]["bcftools_call"]["extra"],
@@ -28,25 +28,48 @@ rule bcftools_call:
         "v1.21.1/bio/bcftools/call"
 
 
+
+rule norm_vcf:
+    input:
+        "results/vcf/{sample}.calls.vcf",
+        ref="data/reference/" + genome + ".fasta",
+    output:
+        "results/vcf_norm/{sample}.norm.bcf", # can also be .bcf, corresponding --output-type parameter is inferred automatically
+    log:
+        "{prefix}.norm.log",
+    params:
+        extra="--rm-dup none",  # optional
+        #uncompressed_bcf=False,
+    wrapper:
+        "v1.21.4/bio/bcftools/norm"
+
+
+rule bcf_filter_o_vcf:
+    input:
+        "results/vcf_norm/{sample}.norm.bcf",
+    output:
+        ""results/flt_indels/{sample}.flt-indels.bcf",
+    log:
+        "log/{prefix}.filter.vcf.log",
+    params:
+        filter="-i 'QUAL > 5'",
+        extra="",
+    wrapper:
+        "v1.21.4/bio/bcftools/filter"
+
+# NOT FINISH yet
+
+# I
 # Filter and report the SNV variants in variant calling format (VCF)
 rule filter_vcf:
     input:
-        "results/mapped/{sample}.calls.vcf"
+        "results/vcf/{sample}.calls.vcf"
     output:
-        "results/vcf/{sample}.filtered.vcf"
+        "results/filtered/{sample}.filtered.vcf"
     params:
         extra=config["rule_parameters"]["filter_vcf"]["extra"],
     wrapper:
         "v1.21.1/bio/vcftools/filter"
 
-#rule wgs_fasta:
-#    input:
-#        vcf="results/vcf/{sample}.filtered.vcf",
-#        ref="data/reference/" + genome + ".fasta",
-#    output:
-#        "results/wgs/{sample}.fasta"
-#    conda:
-#        "../envs/wgs.yaml"
-#    shell:
-#        "cat {input.ref} | vcf-consensus {input.vcf} > {output}"
+
 
