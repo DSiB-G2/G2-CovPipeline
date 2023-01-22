@@ -22,6 +22,7 @@ rule bwa_mem:
     log:
         "logs/bwa_mem/{sample}.log",
     params:
+        extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
         sorting=config["rule_parameters"]["bwa_mem"]["sorting"],  # Can be 'none', 'samtools' or 'picard'.
     wrapper:
         "v1.21.1/bio/bwa/mem"
@@ -39,6 +40,7 @@ rule samtools_sort:
         extra=config["rule_parameters"]["samtools_sort"]["extra"],
     wrapper:
         "v1.21.1/bio/samtools/sort"
+
 
 #qc
 rule samtools_index:
