@@ -4,7 +4,7 @@ rule bcftools_mpileup:
         alignments="results/mapped/{sample}.sorted.bam",
         ref="data/reference/" + genome + ".fasta",  # this can be left out if --no-reference is in options
     output:
-        pileup="results/pileups/{sample}.pileup.bcf",
+        pileup="results/pileups/{sample}.pileup.vcf.gz",
     params:
         uncompressed_bcf=config["rule_parameters"]["bcftools_mpileup"]["uncompressed_bcf"],
         extra=config["rule_parameters"]["bcftools_mpileup"]["extra"]
@@ -16,10 +16,11 @@ rule bcftools_mpileup:
 # Detect the single nucleotide variants (SNVs)
 rule bcftools_call:
     input:
-        pileup="results/pileups/{sample}.pileup.bcf",
+        pileup="results/pileups/{sample}.pileup.vcf.gz",
     output:
-        calls="results/vcf/{sample}.calls.vcf",
+        calls="results/vcf/{sample}.calls.vcf.gz",
     params:
+        uncompressed_bcf=False,
         caller=config["rule_parameters"]["bcftools_call"]["caller"],  # valid options include -c/--consensus-caller or -m/--multiallelic-caller
         extra=config["rule_parameters"]["bcftools_call"]["extra"],
     log:
@@ -29,35 +30,32 @@ rule bcftools_call:
 
 
 
-rule norm_vcf:
+# index vcf (has to be gz)
+rule bcftools_index:
     input:
-        "results/vcf/{sample}.calls.vcf",
+        "results/vcf/{sample}.calls.vcf.gz",
+    output:
+        "results/vcf/{sample}.calls.vcf.gz.csi",
+    log:
+        "logs/bcftools_index/{sample}.log",
+    params:
+        extra="",  # optional parameters for bcftools index
+    wrapper:
+        "v1.21.4/bio/bcftools/index"
+
+
+# apply variants to create consensus sequence
+rule bcf_consensus:
+    input:
+        vcf="results/vcf/{sample}.calls.vcf.gz",
         ref="data/reference/" + genome + ".fasta",
     output:
-        "results/vcf_norm/{sample}.norm.bcf", # can also be .bcf, corresponding --output-type parameter is inferred automatically
-    log:
-        "{prefix}.norm.log",
-    params:
-        extra="--rm-dup none",  # optional
-        #uncompressed_bcf=False,
-    wrapper:
-        "v1.21.4/bio/bcftools/norm"
+        "results/consensus/{sample}.fa",
+    conda:
+        "../envs/bcftools.yaml"
+    shell:
+        "bcftools consensus -I -s {wildcards.sample} -f {input.ref} {input.vcf} -o {output}"
 
-
-rule bcf_filter_o_vcf:
-    input:
-        "results/vcf_norm/{sample}.norm.bcf",
-    output:
-        ""results/flt_indels/{sample}.flt-indels.bcf",
-    log:
-        "log/{prefix}.filter.vcf.log",
-    params:
-        filter="-i 'QUAL > 5'",
-        extra="",
-    wrapper:
-        "v1.21.4/bio/bcftools/filter"
-
-# NOT FINISH yet
 
 # I
 # Filter and report the SNV variants in variant calling format (VCF)

@@ -25,7 +25,7 @@ rule_parameters:
         uncompressed_bcf: False
         extra: "--max-depth 100 --min-BQ 15"
     bcftools_call:
-        caller: "-m"
+        caller: "-c"
         extra: "--ploidy 1 -v"
     filter_vcf:
         extra: ""

@@ -41,38 +41,6 @@ rule samtools_sort:
     wrapper:
         "v1.21.1/bio/samtools/sort"
 
-# assemble contigs
-rule samtools_fastq:
-    input:
-        "results/mapped/{sample}.sorted.bam",
-    output:
-        "results/pre_fold/{sample}.fasta",
-    log:
-        "logs/samtools_fastq/{sample}.log",
-    message:
-        ""
-    # Samtools takes additional threads through its option -@
-    threads: 2  # This value - 1 will be sent to -@
-    params:
-        outputtype="fasta",
-        extra="",
-    wrapper:
-        "v1.21.2/bio/samtools/fastx/"
-
-# fold fasta
-rule seqtk_seq_fastq_to_fasta:
-    input:
-        "results/pre_fold/{sample}.fasta",
-    output:
-        "results/folded/{sample}.fasta",
-    log:
-        "logs/seqtk_seq_fastq_to_fasta/{sample}.log",
-    params:
-        extra="-Cl60",
-    wrapper:
-        "v1.21.2/bio/seqtk/seq"
-
-
 
 #qc
 rule samtools_index:

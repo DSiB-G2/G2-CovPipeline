@@ -1,9 +1,9 @@
 
 rule pangolin_la:
     input:
-        "data/reference/" + genome + ".fasta",
+        "results/consensus/{sample}.fa",
     output:
-        "results/ref_pangolin/out.csv"
+        "results/lineage_assignment/{sample}.csv"
     conda:
         "../envs/pangolin.yaml"
     shell:
