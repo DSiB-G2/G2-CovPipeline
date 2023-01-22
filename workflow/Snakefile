@@ -13,7 +13,6 @@ read_2_adapter = config["adapter"]["read_2"]
 
 rule all:
     input:
-        expand("results/filtered/{sample}.filtered.vcf", sample=SAMPLES),
         expand("results/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
         expand("results/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
         expand("results/vcf/{sample}.calls.vcf.gz.csi", sample=SAMPLES),

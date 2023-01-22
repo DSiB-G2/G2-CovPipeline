@@ -47,6 +47,7 @@ rule bcftools_index:
 # apply variants to create consensus sequence
 rule bcf_consensus:
     input:
+        "results/vcf/{sample}.calls.vcf.gz.csi",
         vcf="results/vcf/{sample}.calls.vcf.gz",
         ref="data/reference/" + genome + ".fasta",
     output:
@@ -59,15 +60,15 @@ rule bcf_consensus:
 
 # I
 # Filter and report the SNV variants in variant calling format (VCF)
-rule filter_vcf:
-    input:
-        "results/vcf/{sample}.calls.vcf"
-    output:
-        "results/filtered/{sample}.filtered.vcf"
-    params:
-        extra=config["rule_parameters"]["filter_vcf"]["extra"],
-    wrapper:
-        "v1.21.1/bio/vcftools/filter"
+#rule filter_vcf:
+#    input:
+#        "results/vcf/{sample}.calls.vcf"
+#    output:
+#        "results/filtered/{sample}.filtered.vcf"
+#    params:
+#        extra=config["rule_parameters"]["filter_vcf"]["extra"],
+#    wrapper:
+#        "v1.21.1/bio/vcftools/filter"
 
 
 
