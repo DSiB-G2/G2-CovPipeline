@@ -39,7 +39,7 @@ rule bcftools_index:
     log:
         "logs/bcftools_index/{sample}.log",
     params:
-        extra="",  # optional parameters for bcftools index
+        extra=config["rule_parameters"]["bcftools_index"]["extra"],  # optional parameters for bcftools index
     wrapper:
         "v1.21.4/bio/bcftools/index"
 
@@ -52,6 +52,8 @@ rule bcf_consensus:
         ref="data/reference/" + genome + ".fasta",
     output:
         "results/consensus/{sample}.fa",
+    log:
+        "logs/bcf_consensus/{sample}.log",
     conda:
         "../envs/bcftools.yaml"
     shell:

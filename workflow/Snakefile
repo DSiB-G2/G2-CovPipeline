@@ -15,8 +15,8 @@ rule all:
     input:
         expand("results/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
         expand("results/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
-        expand("results/vcf/{sample}.calls.vcf.gz.csi", sample=SAMPLES),
         expand("results/lineage_assignment/{sample}.csv", sample=SAMPLES),
+        expand("results/megahit_assembled/{sample}/{sample}.fa", sample=SAMPLES)
         
         
 
