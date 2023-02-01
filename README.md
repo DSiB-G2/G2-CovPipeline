@@ -50,5 +50,6 @@ Config file is found under config/
     - [vcftools] (https://vcftools.github.io/man_latest.html)
     - [seqtk] (https://github.com/lh3/seqtk)
     - [pangolin] (https://cov-lineages.org/resources/pangolin.html)
+    - [megahit] (https://github.com/voutcn/megahit)
 
 

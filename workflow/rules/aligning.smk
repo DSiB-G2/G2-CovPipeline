@@ -76,7 +76,7 @@ rule samtools_idxstats:
     output:
         "results/mapped/{sample}.sorted.bam.idxstats",
     log:
-        "logs/samtools/idxstats/{sample}.log",
+        "logs/samtools_idxstats/{sample}.log",
     params:
         extra=config["rule_parameters"]["samtools_idxstats"]["extra"],  # optional params string
     wrapper:

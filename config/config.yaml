@@ -1,5 +1,5 @@
 samples:
-    [ RV417026_S15_L001,RV417027_S18_L001,RV417028_S20_L001,RV417029_S19_L001]
+    [RV417026_S15_L001,RV417027_S18_L001,RV417028_S20_L001,RV417029_S19_L001]
 
 reference_genome:
     NC_045512.2
@@ -25,7 +25,9 @@ rule_parameters:
         uncompressed_bcf: False
         extra: "--max-depth 100 --min-BQ 15"
     bcftools_call:
-        caller: "-c"
+        caller: "-m"
         extra: "--ploidy 1 -v"
+    bcftools_index:
+        extra: ""
     filter_vcf:
         extra: ""
