@@ -1,10 +1,12 @@
 
 rule pangolin_la:
     input:
-        "results/consensus/{sample}.fa",
+        "results/{sample}/consensus/{sample}.fa",
     output:
-        "results/lineage_assignment/{sample}.csv"
+        "results/{sample}/lineage_assignment/{sample}.csv"
     conda:
         "../envs/pangolin.yaml"
+    log:
+        "logs/lineage_assignment/{sample}.log",
     shell:
         "pangolin {input} --outfile {output}"

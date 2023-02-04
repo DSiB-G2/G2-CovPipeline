@@ -1,10 +1,10 @@
 # Calculate the read coverage of positions in the genome
 rule bcftools_mpileup:
     input:
-        alignments="results/mapped/{sample}.sorted.bam",
-        ref="data/reference/" + genome + ".fasta",  # this can be left out if --no-reference is in options
+        alignments="results/{sample}/mapped/{sample}.sorted.bam",
+        ref=f"data/reference/{genome}.fasta",  # this can be left out if --no-reference is in options
     output:
-        pileup="results/pileups/{sample}.pileup.vcf.gz",
+        pileup="results/{sample}/pileups/{sample}.pileup.vcf.gz",
     params:
         uncompressed_bcf=config["rule_parameters"]["bcftools_mpileup"]["uncompressed_bcf"],
         extra=config["rule_parameters"]["bcftools_mpileup"]["extra"]
@@ -16,9 +16,9 @@ rule bcftools_mpileup:
 # Detect the single nucleotide variants (SNVs)
 rule bcftools_call:
     input:
-        pileup="results/pileups/{sample}.pileup.vcf.gz",
+        pileup="results/{sample}/pileups/{sample}.pileup.vcf.gz",
     output:
-        calls="results/vcf/{sample}.calls.vcf.gz",
+        calls="results/{sample}/vcf/{sample}.calls.vcf.gz",
     params:
         uncompressed_bcf=False,
         caller=config["rule_parameters"]["bcftools_call"]["caller"],  # valid options include -c/--consensus-caller or -m/--multiallelic-caller
@@ -33,9 +33,9 @@ rule bcftools_call:
 # index vcf (has to be gz)
 rule bcftools_index:
     input:
-        "results/vcf/{sample}.calls.vcf.gz",
+        "results/{sample}/vcf/{sample}.calls.vcf.gz",
     output:
-        "results/vcf/{sample}.calls.vcf.gz.csi",
+        "results/{sample}/vcf/{sample}.calls.vcf.gz.csi",
     log:
         "logs/bcftools_index/{sample}.log",
     params:
@@ -47,11 +47,11 @@ rule bcftools_index:
 # apply variants to create consensus sequence
 rule bcf_consensus:
     input:
-        "results/vcf/{sample}.calls.vcf.gz.csi",
-        vcf="results/vcf/{sample}.calls.vcf.gz",
-        ref="data/reference/" + genome + ".fasta",
+        "results/{sample}/vcf/{sample}.calls.vcf.gz.csi",
+        vcf="results/{sample}/vcf/{sample}.calls.vcf.gz",
+        ref=f"data/reference/{genome}.fasta",
     output:
-        "results/consensus/{sample}.fa",
+        "results/{sample}/consensus/{sample}.fa",
     log:
         "logs/bcf_consensus/{sample}.log",
     conda:
@@ -64,9 +64,9 @@ rule bcf_consensus:
 # Filter and report the SNV variants in variant calling format (VCF)
 #rule filter_vcf:
 #    input:
-#        "results/vcf/{sample}.calls.vcf"
+#        "results/{sample}/vcf/{sample}.calls.vcf"
 #    output:
-#        "results/filtered/{sample}.filtered.vcf"
+#        "results/{sample}/filtered/{sample}.filtered.vcf"
 #    params:
 #        extra=config["rule_parameters"]["filter_vcf"]["extra"],
 #    wrapper:
