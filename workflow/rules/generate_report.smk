@@ -1,7 +1,7 @@
 rule generate_report:
     input:
-        vcf = "results/vcf/{sample}.calls.vcf.gz",
-        ref = "data/reference/" + genome + ".fasta",
+        vcf = "results/{sample}/vcf/{sample}.calls.vcf.gz",
+        ref = f"data/reference/{genome}.fasta",
     output:
         "workflow/report/{sample}/{sample}_variants.html",
     log:

@@ -7,16 +7,13 @@ SAMPLES = config["samples"]
 # get reference genome
 genome = config["reference_genome"]
 
-# get adapters
-read_1_adapter = config["adapter"]["read_1"]
-read_2_adapter = config["adapter"]["read_2"]
 
 rule all:
     input:
-        expand("results/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
-        expand("results/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
-        expand("results/lineage_assignment/{sample}.csv", sample=SAMPLES),
-        expand("results/megahit_assembled/{sample}", sample=SAMPLES),
+        expand("results/{sample}/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
+        expand("results/{sample}/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
+        expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES),
+        expand("results/{sample}/megahit_assembled/{sample}", sample=SAMPLES),
         expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES)
         
         
