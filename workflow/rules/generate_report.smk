@@ -11,3 +11,6 @@ rule generate_report:
     shell:
         "create_report {input.vcf} {input.ref} "
         "--output {output}"
+        "--sample-columns DP GQ"
+        "--info-columns COSMIC_ID"
+        "--tracks results/{sample}/vcf/{sample}.calls.vcf.gz results/{sample}/mapped/{sample}.sorted.bam.idxstats"
