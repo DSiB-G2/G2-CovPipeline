@@ -4,7 +4,7 @@ rule vcf_variant_annotation:
         cache="resources/vep/cache",  # can be omitted if fasta and gff are specified
         plugins="resources/vep/plugins",
         # optionally add reference genome fasta
-        fasta="data/reference/{genome}.fasta",
+        fasta=f"data/reference/{genome}.fasta",
         # fai="genome.fasta.fai", # fasta index
         # gff="annotation.gff",
         # csi="annotation.gff.csi", # tabix index
@@ -20,7 +20,7 @@ rule vcf_variant_annotation:
         plugins=["SingleLetterAA, HGVSIntronOffset"],
         extra="--everything",  # optional: extra arguments
     log:
-        "logs/vcf_variant_annotation/annotate.log",
+        "logs/vcf_variant_annotation/{sample}.log",
     threads: 4
     wrapper:
         "v1.23.1/bio/vep/annotate"
