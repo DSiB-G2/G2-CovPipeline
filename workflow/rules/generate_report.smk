@@ -13,5 +13,4 @@ rule generate_report:
         "create_report {input.vcf} {input.ref} "
         "--output {output} "
         "--sample-columns DP GQ "
-        "--info-columns COSMIC_ID "
         "--tracks {input.vcf} {input.bam}"
