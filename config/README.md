@@ -12,6 +12,7 @@ This markdown will provide an insight on configuring the pipeline
 |   └── Snakefile
 ├── config
 │   ├── config.yaml
+│   └── samples.csv   
 ├── data
 |   ├── reference
 |   │   ├── reference.fasta
@@ -26,7 +27,7 @@ This markdown will provide an insight on configuring the pipeline
 Note: Only paired ends!!!!
 
 - Samples:
-    List of the name of samples to be processed. It will be stored under data/
+    To add samples edit the samples.csv file: Add the name of the sample in "sample" column and add the two reads file respectively
 
 - Reference genome:
     The ID of the reference genome. It shjould be stored under data/reference/

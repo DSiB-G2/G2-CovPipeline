@@ -1,11 +1,4 @@
-
-configfile: "config/config.yaml"
-
-# get paired end samples name
-SAMPLES = config["samples"]
-
-# get reference genome
-genome = config["reference_genome"]
+include: "rules/common.smk"
 
 
 rule all:
@@ -15,8 +8,6 @@ rule all:
         # expand("results/{sample}/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
         expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES),
         expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES)
-        
-        
 
 
 include: "rules/preprocess.smk"

@@ -1,7 +1,7 @@
 # Index the reference genome
 rule bwa_index:
     input:
-        f"data/reference/{genome}.fasta"
+        f"data/reference/{genome}.fasta",
     output:
         idx=multiext(f"data/reference/{genome}", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     log:
@@ -11,9 +11,10 @@ rule bwa_index:
     wrapper:
         "v1.21.1/bio/bwa/index"
 
+
 # Align reads to reference genome
-#this wrapper does bwa mem and change it to bam when sort is "none"
-rule bwa_mem_de_novo:
+# This wrapper does bwa mem and changes it to bam when sort is "none"
+rule bwa_mem:
     input:
         reads="results/{sample}/ragtag/ragtag.scaffold.fasta",
         idx=multiext(f"data/reference/{genome}", ".amb", ".ann", ".bwt", ".pac", ".sa"),
@@ -29,7 +30,7 @@ rule bwa_mem_de_novo:
 
 
 # Sort BAM file by coordinates
-rule samtools_sort_de_novo:
+rule samtools_sort:
     input:
         "results/{sample}/mapped/{sample}.bam",
     output:
