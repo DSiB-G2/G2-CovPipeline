@@ -1,12 +1,4 @@
-
-configfile: "config/config.yaml"
-
-# get paired end samples name
-SAMPLES = config["samples"]
-
-# get reference genome
-genome = config["reference_genome"]
-
+include: "rules/common.smk"
 
 rule all:
     input:
