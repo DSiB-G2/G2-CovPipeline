@@ -1,4 +1,3 @@
-
 rule pangolin_la:
     input:
         "results/{sample}/consensus/{sample}.fa",

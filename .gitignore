@@ -1,5 +1,6 @@
 workflow/report
 results/
+report/
 logs/
 .snakemake/
 data/*.fastq

@@ -2,7 +2,7 @@
 rule bcftools_mpileup:
     input:
         alignments="results/{sample}/mapped/{sample}.sorted.bam",
-        ref=f"data/reference/{genome}.fasta",  # this can be left out if --no-reference is in options
+        ref=f"data/reference/{genome}.fasta",
     output:
         pileup="results/{sample}/pileups/{sample}.pileup.vcf.gz",
     params:
@@ -45,7 +45,6 @@ rule bcftools_index:
     wrapper:
         "v1.21.4/bio/bcftools/index"
 
-
 # apply variants to create consensus sequence
 rule bcf_consensus:
     input:
@@ -61,8 +60,6 @@ rule bcf_consensus:
     shell:
         "bcftools consensus -I -s {wildcards.sample} -f {input.ref} {input.vcf} -o {output}"
 
-
-# I
 # Filter and report the SNV variants in variant calling format (VCF)
 # rule filter_vcf:
 #    input:

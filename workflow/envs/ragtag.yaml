@@ -2,4 +2,5 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - fastp = 0.23.1
+  - ragtag =2.1.0
+  - minimap2 =2.24

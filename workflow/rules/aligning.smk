@@ -13,13 +13,10 @@ rule bwa_index:
 
 
 # Align reads to reference genome
-# this wrapper does bwa mem and change it to bam when sort is "none"
+# This wrapper does bwa mem and changes it to bam when sort is "none"
 rule bwa_mem:
     input:
-        reads=[
-            "results/{sample}/trimmed/{sample}_1.trimmed.fastq",
-            "results/{sample}/trimmed/{sample}_2.trimmed.fastq",
-        ],
+        reads="results/{sample}/ragtag/ragtag.scaffold.fasta",
         idx=multiext(f"data/reference/{genome}", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
         "results/{sample}/mapped/{sample}.bam",
@@ -45,45 +42,42 @@ rule samtools_sort:
     wrapper:
         "v1.21.1/bio/samtools/sort"
 
+# #qc
+# rule samtools_index:
+#     input:
+#         "results/{sample}/mapped/{sample}.sorted.bam",
+#     output:
+#         "results/{sample}/mapped/{sample}.sorted.bam.bai",
+#     log:
+#         "logs/samtools_index/{sample}.log",
+#     params:
+#         extra=config["rule_parameters"]["samtools_index"]["extra"],
+#     wrapper:
+#         "v1.21.1/bio/samtools/index"
 
-# qc
-rule samtools_index:
-    input:
-        "results/{sample}/mapped/{sample}.sorted.bam",
-    output:
-        "results/{sample}/mapped/{sample}.sorted.bam.bai",
-    log:
-        "logs/samtools_index/{sample}.log",
-    params:
-        extra=config["rule_parameters"]["samtools_index"]["extra"],
-    wrapper:
-        "v1.21.1/bio/samtools/index"
+# #qc
+# rule samtools_flagstat:
+#     input:
+#         "results/{sample}/mapped/{sample}.sorted.bam",
+#     output:
+#         "results/{sample}/mapped/{sample}.sorted.bam.flagstat",
+#     log:
+#         "logs/samtools_flagstat/{sample}.log",
+#     params:
+#         extra=config["rule_parameters"]["samtools_flagstat"]["extra"],  # optional params string
+#     wrapper:
+#         "v1.21.1-1-g03463da5/bio/samtools/flagstat"
 
-
-# qc
-rule samtools_flagstat:
-    input:
-        "results/{sample}/mapped/{sample}.sorted.bam",
-    output:
-        "results/{sample}/mapped/{sample}.sorted.bam.flagstat",
-    log:
-        "logs/samtools_flagstat/{sample}.log",
-    params:
-        extra=config["rule_parameters"]["samtools_flagstat"]["extra"],  # optional params string
-    wrapper:
-        "v1.21.1-1-g03463da5/bio/samtools/flagstat"
-
-
-# qc
-rule samtools_idxstats:
-    input:
-        bam="results/{sample}/mapped/{sample}.sorted.bam",
-        idx="results/{sample}/mapped/{sample}.sorted.bam.bai",
-    output:
-        "results/{sample}/mapped/{sample}.sorted.bam.idxstats",
-    log:
-        "logs/samtools_idxstats/{sample}.log",
-    params:
-        extra=config["rule_parameters"]["samtools_idxstats"]["extra"],  # optional params string
-    wrapper:
-        "v1.21.1-1-g03463da5/bio/samtools/idxstats"
+# #qc
+# rule samtools_idxstats:
+#     input:
+#         bam="results/{sample}/mapped/{sample}.sorted.bam",
+#         idx="results/{sample}/mapped/{sample}.sorted.bam.bai",
+#     output:
+#         "results/{sample}/mapped/{sample}.sorted.bam.idxstats",
+#     log:
+#         "logs/samtools_idxstats/{sample}.log",
+#     params:
+#         extra=config["rule_parameters"]["samtools_idxstats"]["extra"],  # optional params string
+#     wrapper:
+#         "v1.21.1-1-g03463da5/bio/samtools/idxstats"
