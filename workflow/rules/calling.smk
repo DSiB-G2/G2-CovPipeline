@@ -6,12 +6,15 @@ rule bcftools_mpileup:
     output:
         pileup="results/{sample}/pileups/{sample}.pileup.vcf.gz",
     params:
-        uncompressed_bcf=config["rule_parameters"]["bcftools_mpileup"]["uncompressed_bcf"],
-        extra=config["rule_parameters"]["bcftools_mpileup"]["extra"]
+        uncompressed_bcf=config["rule_parameters"]["bcftools_mpileup"][
+            "uncompressed_bcf"
+        ],
+        extra=config["rule_parameters"]["bcftools_mpileup"]["extra"],
     log:
         "logs/bcftools_mpileup/{sample}.log",
     wrapper:
         "v1.21.1/bio/bcftools/mpileup"
+
 
 # Detect the single nucleotide variants (SNVs)
 rule bcftools_call:
@@ -27,7 +30,6 @@ rule bcftools_call:
         "logs/bcftools_call/{sample}.log",
     wrapper:
         "v1.21.1/bio/bcftools/call"
-
 
 
 # index vcf (has to be gz)
@@ -62,7 +64,7 @@ rule bcf_consensus:
 
 # I
 # Filter and report the SNV variants in variant calling format (VCF)
-#rule filter_vcf:
+# rule filter_vcf:
 #    input:
 #        "results/{sample}/vcf/{sample}.calls.vcf"
 #    output:
@@ -71,6 +73,3 @@ rule bcf_consensus:
 #        extra=config["rule_parameters"]["filter_vcf"]["extra"],
 #    wrapper:
 #        "v1.21.1/bio/vcftools/filter"
-
-
-

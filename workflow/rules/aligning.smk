@@ -1,7 +1,7 @@
 # Index the reference genome
 rule bwa_index:
     input:
-        f"data/reference/{genome}.fasta"
+        f"data/reference/{genome}.fasta",
     output:
         idx=multiext(f"data/reference/{genome}", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     log:
@@ -11,11 +11,15 @@ rule bwa_index:
     wrapper:
         "v1.21.1/bio/bwa/index"
 
+
 # Align reads to reference genome
-#this wrapper does bwa mem and change it to bam when sort is "none"
+# this wrapper does bwa mem and change it to bam when sort is "none"
 rule bwa_mem:
     input:
-        reads=["results/{sample}/trimmed/{sample}_1.trimmed.fastq", "results/{sample}/trimmed/{sample}_2.trimmed.fastq"],
+        reads=[
+            "results/{sample}/trimmed/{sample}_1.trimmed.fastq",
+            "results/{sample}/trimmed/{sample}_2.trimmed.fastq",
+        ],
         idx=multiext(f"data/reference/{genome}", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
         "results/{sample}/mapped/{sample}.bam",
@@ -42,7 +46,7 @@ rule samtools_sort:
         "v1.21.1/bio/samtools/sort"
 
 
-#qc
+# qc
 rule samtools_index:
     input:
         "results/{sample}/mapped/{sample}.sorted.bam",
@@ -55,7 +59,8 @@ rule samtools_index:
     wrapper:
         "v1.21.1/bio/samtools/index"
 
-#qc
+
+# qc
 rule samtools_flagstat:
     input:
         "results/{sample}/mapped/{sample}.sorted.bam",
@@ -68,7 +73,8 @@ rule samtools_flagstat:
     wrapper:
         "v1.21.1-1-g03463da5/bio/samtools/flagstat"
 
-#qc
+
+# qc
 rule samtools_idxstats:
     input:
         bam="results/{sample}/mapped/{sample}.sorted.bam",
