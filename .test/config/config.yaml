@@ -1,5 +1,4 @@
-samples:
-    [Demo1]
+samples: config/samples.csv
 
 reference_genome:
     NC_045512.2
