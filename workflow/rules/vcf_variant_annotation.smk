@@ -17,7 +17,7 @@ rule vcf_variant_annotation:
     params:
         # Pass a list of plugins to use, see https://www.ensembl.org/info/docs/tools/vep/script/vep_plugins.html
         # Plugin args can be added as well, e.g. via an entry "MyPlugin,1,FOO", see docs.
-        plugins=["SingleLetterAA, HGVSIntronOffset"],
+        plugins=["SingleLetterAA"],
         extra="--everything",  # optional: extra arguments
     log:
         "logs/vcf_variant_annotation/{sample}.log",
@@ -25,6 +25,27 @@ rule vcf_variant_annotation:
     wrapper:
         "v1.23.1/bio/vep/annotate"
 
+rule get_vep_cache:
+    output:
+        directory("resources/vep/cache"),
+    params:
+        species="saccharomyces_cerevisiae",
+        build="R64-1-1",
+        release="98",
+    log:
+        "logs/vep/cache.log",
+    cache: "omit-software"  # save space and time with between workflow caching (see docs)
+    wrapper:
+        "v1.23.1/bio/vep/cache"
+
+
+rule download_vep_plugins:
+    output:
+        directory("resources/vep/plugins")
+    params:
+        release=100
+    wrapper:
+        "v1.23.1/bio/vep/plugins"
 
 # My Notes:
 # For .vcf.gz output may need to be added: --vcf --fields "Allele,Gene,HGVSc,HGVSp" 

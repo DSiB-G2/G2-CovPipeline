@@ -1,0 +1,16 @@
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 1. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 2. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 3. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 4. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 5. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 6. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 7. 
+Chromosome NC_045512.2 does not overlap any features
+WARNING: Chromosome NC_045512.2 not found in annotation sources or synonyms on line 8. 
+Chromosome NC_045512.2 does not overlap any features
