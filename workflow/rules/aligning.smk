@@ -15,12 +15,10 @@ rule bwa_index:
 #this wrapper does bwa mem and change it to bam when sort is "none"
 rule bwa_mem_de_novo:
     input:
-        # reads=rules.order_contigs.output.file,
         reads="results/{sample}/ragtag/ragtag.scaffold.fasta",
-        # reads="results/{sample}/spades_assembly/scaffolds.fasta",
         idx=multiext(f"data/reference/{genome}", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        "results/{sample}/de_novo_mapped/{sample}.bam",
+        "results/{sample}/mapped/{sample}.bam",
     log:
         "logs/bwa_mem/{sample}.log",
     params:
@@ -33,9 +31,9 @@ rule bwa_mem_de_novo:
 # Sort BAM file by coordinates
 rule samtools_sort_de_novo:
     input:
-        "results/{sample}/de_novo_mapped/{sample}.bam",
+        "results/{sample}/mapped/{sample}.bam",
     output:
-        "results/{sample}/de_novo_mapped/{sample}.sorted.bam",
+        "results/{sample}/mapped/{sample}.sorted.bam",
     log:
         "logs/samtools_sort/{sample}.log",
     params:

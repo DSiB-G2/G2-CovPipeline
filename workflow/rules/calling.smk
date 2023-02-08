@@ -1,10 +1,10 @@
 # Calculate the read coverage of positions in the genome
 rule bcftools_mpileup_de_novo:
     input:
-        alignments="results/{sample}/de_novo_mapped/{sample}.sorted.bam",
-        ref=f"data/reference/{genome}.fasta",  # this can be left out if --no-reference is in options
+        alignments="results/{sample}/mapped/{sample}.sorted.bam",
+        ref=f"data/reference/{genome}.fasta",
     output:
-        pileup="results/{sample}/de_novo_pileups/{sample}.pileup.vcf.gz",
+        pileup="results/{sample}/pileups/{sample}.pileup.vcf.gz",
     params:
         uncompressed_bcf=config["rule_parameters"]["bcftools_mpileup"]["uncompressed_bcf"],
         extra=config["rule_parameters"]["bcftools_mpileup"]["extra"]
@@ -16,9 +16,9 @@ rule bcftools_mpileup_de_novo:
 # Detect the single nucleotide variants (SNVs)
 rule bcftools_call_de_novo:
     input:
-        pileup="results/{sample}/de_novo_pileups/{sample}.pileup.vcf.gz",
+        pileup="results/{sample}/pileups/{sample}.pileup.vcf.gz",
     output:
-        calls="results/{sample}/de_novo_vcf/{sample}.calls.vcf.gz",
+        calls="results/{sample}/vcf/{sample}.calls.vcf.gz",
     params:
         uncompressed_bcf=False,
         caller=config["rule_parameters"]["bcftools_call"]["caller"],  # valid options include -c/--consensus-caller or -m/--multiallelic-caller
@@ -33,9 +33,9 @@ rule bcftools_call_de_novo:
 # index vcf (has to be gz)
 rule bcftools_index_de_novo:
     input:
-        "results/{sample}/de_novo_vcf/{sample}.calls.vcf.gz",
+        "results/{sample}/vcf/{sample}.calls.vcf.gz",
     output:
-        "results/{sample}/de_novo_vcf/{sample}.calls.vcf.gz.csi",
+        "results/{sample}/vcf/{sample}.calls.vcf.gz.csi",
     log:
         "logs/bcftools_index/{sample}.log",
     params:
@@ -46,11 +46,11 @@ rule bcftools_index_de_novo:
 # apply variants to create consensus sequence
 rule bcf_consensus_de_novo:
     input:
-        "results/{sample}/de_novo_vcf/{sample}.calls.vcf.gz.csi",
-        vcf="results/{sample}/de_novo_vcf/{sample}.calls.vcf.gz",
+        "results/{sample}/vcf/{sample}.calls.vcf.gz.csi",
+        vcf="results/{sample}/vcf/{sample}.calls.vcf.gz",
         ref=f"data/reference/{genome}.fasta",
     output:
-        "results/{sample}/de_novo_consensus/{sample}.fa",
+        "results/{sample}/consensus/{sample}.fa",
     log:
         "logs/bcf_consensus/{sample}.log",
     conda:

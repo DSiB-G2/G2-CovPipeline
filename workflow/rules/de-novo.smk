@@ -1,6 +1,5 @@
-rule run_metaspades:
+rule metaspades_assembly:
     input:
-        # reads=["results/{sample}/trimmed/{sample}_1.trimmed.fastq", "results/{sample}/trimmed/{sample}_2.trimmed.fastq", "results/{sample}/merged/{sample}.merged.fastq", "results/{sample}/merged/{sample}.unpaired.fastq"],
         reads=["results/{sample}/trimmed/{sample}_1.trimmed.fastq", "results/{sample}/trimmed/{sample}_2.trimmed.fastq"],
     output:
         contigs="results/{sample}/spades_assembly/contigs.fasta",
@@ -10,7 +9,6 @@ rule run_metaspades:
         "logs/benchmarks/spades_assembly/{sample}.txt"
     params:
         k="auto",
-        # extra="--only-assembler",
     log:
         "logs/spades/{sample}.log",
     threads: 16
@@ -20,12 +18,12 @@ rule run_metaspades:
     wrapper:
         "v1.23.1/bio/spades/metaspades"
 
-rule order_contigs:
+rule ragtag_scaffold:
     input:
         contigs="results/{sample}/spades_assembly/contigs.fasta",
         reference=f"data/reference/{genome}.fasta",
     output:
-        file="results/{sample}/ragtag/ragtag.scaffold.fasta", #??
+        file="results/{sample}/ragtag/ragtag.scaffold.fasta",
         folder=directory("results/{sample}/ragtag/"),
     log:
         "logs/ragtag/{sample}.log",
