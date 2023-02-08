@@ -1,9 +1,9 @@
 rule assembly_megahit:
     input:
-        first = "results/{sample}/trimmed/{sample}_1.trimmed.fastq",
-        second = "results/{sample}/trimmed/{sample}_2.trimmed.fastq"
+        first="results/{sample}/trimmed/{sample}_1.trimmed.fastq",
+        second="results/{sample}/trimmed/{sample}_2.trimmed.fastq",
     output:
-        directory("results/{sample}/megahit_assembled/{sample}")
+        directory("results/{sample}/megahit_assembled/{sample}"),
     log:
         "logs/megahit/{sample}.log",
     conda:
