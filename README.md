@@ -12,24 +12,24 @@ Config file is found under config/
 ### 2) Install Snakemake
 - [Install Snakemake] (https://snakemake.readthedocs.io/en/stable/getting_started/installation.html)
 
-### 3) Get Data
-- Run retreive_data.py (do it only when you have access to c45)
-    ```
-    cd data/
-    python data/retreive_data.py
-    ```
-
-- Run get_reference.sh
-    ```
-    cd data/reference/
-    sh get_reference.sh
-    ```
-### 4) Run with snakemake 
-- activate snakemake first
+- activate snakemake
     ```
     conda activate snakemake
     ```
 
+### 3) Get Data
+- Run retreive_data.py (do it only when you have access to c45)
+    ```
+    cd ~/G2-CovPipeline/data
+    python retrieve_data.py
+    ```
+
+- Run get_reference.sh
+    ```
+    sh data/reference/get_reference.sh
+    ```
+
+### 4) Run with snakemake 
 - run snakemake
     ```
     snakemake --use-conda --cores 1
