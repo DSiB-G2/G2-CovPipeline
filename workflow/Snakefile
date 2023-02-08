@@ -10,8 +10,10 @@ genome = config["reference_genome"]
 
 rule all:
     input:
+        expand("data/reference/{genome}.fasta", genome=genome), # Necessary??
         expand("results/{sample}/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
         expand("results/{sample}/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
+        expand("results/{sample}/ragtag/ragtag.scaffold.fasta", sample=SAMPLES), #??
         expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES),
         expand("results/{sample}/megahit_assembled/{sample}", sample=SAMPLES),
         expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES)

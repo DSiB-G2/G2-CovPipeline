@@ -1,7 +1,8 @@
 
 rule pangolin_la:
     input:
-        "results/{sample}/consensus/{sample}.fa",
+        "results/{sample}/de_novo_consensus/{sample}.fa",
+        #"results/{sample}/ragtag/ragtag.scaffold.fasta",
     output:
         "results/{sample}/lineage_assignment/{sample}.csv"
     conda:

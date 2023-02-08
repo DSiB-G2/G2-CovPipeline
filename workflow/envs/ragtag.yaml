@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - ragtag =2.1.0
+  - minimap2 =2.24

@@ -1,0 +1,6 @@
+taxon,lineage,conflict,ambiguity_score,scorpio_call,scorpio_support,scorpio_conflict,scorpio_notes,version,pangolin_version,scorpio_version,constellation_version,is_designated,qc_status,qc_notes,note
+NODE_1_length_29189_cov_1520.821686,BA.1.18,0.25,,Omicron (BA.1-like),0.93,0.0,scorpio call: Alt alleles 55; Ref alleles 0; Amb alleles 1; Oth alleles 3,PUSHER-v1.18,4.2,0.3.17,v0.1.10,False,pass,Ambiguous_content:0.03,Usher placements: BA.1(1/4) BA.1.18(3/4)
+NODE_2_length_546_cov_4157.150713,Unassigned,,,,,,,PUSHER-v1.18,4.2,0.3.17,v0.1.10,False,fail,Ambiguous_content:0.98,
+NODE_3_length_155_cov_1355.910000,Unassigned,,,,,,,PUSHER-v1.18,4.2,0.3.17,v0.1.10,False,fail,failed to map,
+NODE_4_length_150_cov_1666.747368,Unassigned,,,,,,,PUSHER-v1.18,4.2,0.3.17,v0.1.10,False,fail,failed to map,
+NODE_5_length_130_cov_363.080000,Unassigned,,,,,,,PUSHER-v1.18,4.2,0.3.17,v0.1.10,False,fail,failed to map,
