@@ -52,6 +52,7 @@ sh get_reference.sh
 ### 7) Run with snakemake 
 - Make sure the snakemake environment is active
 ```
+cd ~/G2-CovPipeline
 snakemake --use-conda --cores all
 ```
 
