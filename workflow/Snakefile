@@ -1,5 +1,5 @@
+report: "report/workflow.rst"
 include: "rules/common.smk"
-
 
 rule all:
     input:
@@ -7,8 +7,10 @@ rule all:
         # expand("results/{sample}/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
         # expand("results/{sample}/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
         expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES),
-        expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES)
-
+        expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES),
+        expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES), # New for report
+        # expand("workflow/report/{sample}/csv-report/", sample=SAMPLES), # New for report
+        "workflow/report/csv-report/" # New for report
 
 include: "rules/preprocess.smk"
 include: "rules/de-novo.smk"
@@ -16,3 +18,4 @@ include: "rules/aligning.smk"
 include: "rules/calling.smk"
 include: "rules/lineage_assignment.smk"
 include: "rules/generate_report.smk"
+include: "rules/table_report.smk"
