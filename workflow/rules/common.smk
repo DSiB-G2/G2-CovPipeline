@@ -17,7 +17,7 @@ def get_fastq(wildcards):
     fastqs = samples.loc[(wildcards.sample), ["read_1", "read_2"]].dropna()
     assert len(fastqs) == 2, "Please input only paired-end reads!"
 
-    return {"r1": fastqs.read_1, "r2": fastqs.read_2}
+    return [fastqs.read_1, fastqs.read_2]
 
 
 # get reference genome
