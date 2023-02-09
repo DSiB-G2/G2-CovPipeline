@@ -89,7 +89,7 @@ snakemake --report report.zip && unzip report.zip -d html_report
 - For getting started we mainly used the following tutorial and made alterations whenever sensible:
     [Variant Calling Tutorial](https://datacarpentry.org/wrangling-genomics/)
 
-- Furthermore, the softwares used in this pipeline utilizes heavily on the following snakemake wrappers as well as Snakemake itself and Mambaforge (Conda):
+- Furthermore, we heavily relied on the following snakemake wrappers and softwares used in this pipeline as well as Snakemake itself and Mambaforge (Conda):
     - [Snakemake](https://snakemake.readthedocs.io)
     - [Mambaforge](https://github.com/conda-forge/miniforge)
     - [fastp](https://github.com/OpenGene/fastp)
