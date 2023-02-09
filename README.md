@@ -42,7 +42,7 @@ Snakedeploy will create two folders workflow and config. The former contains the
 
 ### 5) Retrieve samples via scripts
 If a connection to the IKIM cluster is established, you may execute the full code block (containing the `retrieve_data.py` script) below to directly copy the exemplary `.fastq` samples to your data folder.
-If no connection is established, you have the option to customize your input file configuration within step 6).
+If no connection is established, you have the option to customize your input file configuration within `step 6`.
 ```
 mkdir -p data/reference
 wget -O data/retrieve_data.py https://github.com/DSiB-G2/G2-CovPipeline/blob/main/data/retrieve_data.py?raw=true
@@ -62,9 +62,9 @@ wget "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC
 ### 6) Configure the config files (if necessary)
 - The config file can be found under _config/_
 - You may change the adapters if necessary (the preset ones are for NimaGen)
-- You may change the samples.csv file if necessary (filename without "_L001_R1/R2_001.fastq" extension; two paths to paired-end read files relative to the project directory)
+- You may change the samples.csv file if necessary (filename without `_L001_R1/R2_001.fastq` extension; two paths to paired-end read files relative to the project directory)
 
-When using the samples from step 5) no further adjustments should be necessary.
+When using the samples from `step 5` no further adjustments should be necessary.
 
 ### 7) Run with snakemake 
 Again make sure the snakemake environment is active with `conda activate snakemake`
@@ -83,7 +83,7 @@ After the pipeline was executed successfully, you can generate a report.zip file
 snakemake --report report.zip && unzip report.zip -d html_report
 ```
 
-*In the `RESULT` section of the report you have access to intermediate files as well as the lineage assignments for each sample under `Results -> Lineage Assignment -> CSV Viewer / CSV File Download`.*
+**In the `RESULT` section of the report you have access to intermediate files as well as the lineage assignments for each sample under `Results -> Lineage Assignment -> CSV Viewer / CSV File Download`.**
 
 # Resources
 - For getting started we mainly used the following tutorial and made alterations whenever sensible:
