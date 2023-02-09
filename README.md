@@ -53,6 +53,6 @@ Instructions on how to run the pipeline
     - [seqtk] (https://github.com/lh3/seqtk)
     - [pangolin] (https://cov-lineages.org/resources/pangolin.html)
     - [megahit] (https://github.com/voutcn/megahit)
-    -[quast](https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/quast.html)
+    - [quast] (https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/quast.html)
 
 
