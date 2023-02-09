@@ -1,7 +1,7 @@
 # G2-CovPipeline
 A student project under the supervision of IKIM-Essen for the Master's project course "Data Science in Bioinformatics"
 
-During the course, we have implemented an easy to use pipeline for assigning lineages to SARS-CoV-2 (COVID) next generation sequencing data using the Snakemake workflow managment system.
+During the course, we have implemented an easy to use pipeline for assigning lineages to SARS-CoV-2 (COVID) Next-Generation Sequencing data using the Snakemake workflow management system
 
 ## Instructions on how to run the pipeline
 
