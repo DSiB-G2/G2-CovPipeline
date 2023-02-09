@@ -31,17 +31,21 @@ In all following steps, we will assume that you are inside of that directory.
 
 Second, run 
 ```
-snakedeploy deploy-workflow https://github.com/DSiB-G2/G2-CovPipeline . --tag 1.0
+snakedeploy deploy-workflow https://github.com/DSiB-G2/G2-CovPipeline . --tag v1.0
 ```
 
 Snakedeploy will create two folders workflow and config. The former contains the deployment of the chosen workflow as a Snakemake module, the latter contains configuration files which will be modified in the next step in order to configure the workflow to your needs. Later, when executing the workflow, Snakemake will automatically find the main Snakefile in the workflow subfolder.
 
 ### 5) Retrieve samples via scripts (Only when a connection to c45 is established)
 ```
+mkdir -p data/reference
+wget -O data/retrieve_data.py https://github.com/DSiB-G2/G2-CovPipeline/blob/main/data/retrieve_data.py?raw=true
+wget -O data/reference/get_reference.sh https://github.com/DSiB-G2/G2-CovPipeline/blob/main/data/reference/get_reference.sh?raw=true
 cd data/
 python retrieve_data.py
 cd reference/
 sh get_reference.sh
+cd ../..
 ```
 
 ### 6) Configure the config files (if necessary)
