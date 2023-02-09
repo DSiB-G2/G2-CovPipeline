@@ -1,4 +1,6 @@
-workflow/report
+html_report/
+workflow/report/*
+!workflow/report/workflow.rst
 results/
 logs/
 .snakemake/
@@ -10,3 +12,4 @@ data/reference/*.bwt
 data/reference/*.pac
 data/reference/*.sa
 data/reference/*.fai
+report.zip

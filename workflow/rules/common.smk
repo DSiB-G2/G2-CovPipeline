@@ -19,6 +19,5 @@ def get_fastq(wildcards):
 
     return [fastqs.read_1, fastqs.read_2]
 
-
 # get reference genome
 genome = config["reference_genome"]

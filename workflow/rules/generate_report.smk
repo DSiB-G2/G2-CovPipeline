@@ -1,7 +1,7 @@
 rule generate_report:
     input:
-        vcf="results/{sample}/vcf/{sample}.calls.vcf.gz",
-        ref=f"data/reference/{genome}.fasta",
+        vcf = "results/{sample}/vcf/{sample}.calls.vcf.gz",
+        ref = f"data/reference/{genome}.fasta",
     output:
         "workflow/report/{sample}/{sample}_variants.html",
     log:
@@ -10,4 +10,6 @@ rule generate_report:
         "../envs/igv_report.yaml"
     shell:
         "create_report {input.vcf} {input.ref} "
-        "--output {output}"
+        "--output {output} "
+        "--sample-columns DP GQ "
+        "--tracks {input.vcf} "
