@@ -1,30 +1,33 @@
 # G2-CovPipeline
-Master student project under IKIM-Essen
+Master student project under the supervision of IKIM-Essen
 
-This is Group 2's attempt on creating a Covid Variants pipeline using the Snakemake workflow management system
+A covid variant calling pipeline implemented with Snakemake workflow managment system
 
 ## Running the pipeline
-This section covers how to run the pipeline
+Instructions on how to run the pipeline
 
-### 1) Configure the config files
-Config file is found under config/
+### 1) Connect to cluster c45 via Remote-SSH/Remote Explorer extensions in your IDE
 
-### 2) Install Snakemake
+### 2) Configure the config files
+- Config file can be found under _config/_
+
+### 3) Install Snakemake
 - [Install Snakemake] (https://snakemake.readthedocs.io/en/stable/getting_started/installation.html)
 
-### 3) Get Data
-- Run retreive_data.py (do it only when you have access to c45)
+### 4) Clone the github repository 
+
+### 5) Get Data
+- Run retreive_data.py (Only when a connection to c45 is established)
     ```
     cd data/
     python data/retreive_data.py
     ```
-
 - Run get_reference.sh
     ```
     cd data/reference/
     sh get_reference.sh
     ```
-### 4) Run with snakemake 
+### 6) Run with snakemake 
 - activate snakemake first
     ```
     conda activate snakemake
@@ -34,7 +37,6 @@ Config file is found under config/
     ```
     snakemake --use-conda --cores 1
     ```
-
 
 # Resources
 - Pipeline is based on:
@@ -51,5 +53,6 @@ Config file is found under config/
     - [seqtk] (https://github.com/lh3/seqtk)
     - [pangolin] (https://cov-lineages.org/resources/pangolin.html)
     - [megahit] (https://github.com/voutcn/megahit)
+    - [quast] (https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/quast.html)
 
 
