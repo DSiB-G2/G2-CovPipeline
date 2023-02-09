@@ -11,8 +11,6 @@ rule fastp_pe:
     log:
         "logs/fastp/pe/{sample}.log"
     params:
-        # adapter_1 = config["adapter"]["read_1"], TODO Fix later
-        # adapter_2 = config["adapter"]["read_2"], TODO Fix later
         adapters=config["rule_parameters"]["fastp_pe"]["adapters"],
         extra=config["rule_parameters"]["fastp_pe"]["extra"]
     threads: config["threads"]

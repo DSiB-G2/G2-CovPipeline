@@ -2,7 +2,7 @@ rule pangolin_la:
     input:
         "results/{sample}/consensus/{sample}.fa",
     output:
-        "results/{sample}/lineage_assignment/{sample}.csv",
+        report("results/{sample}/lineage_assignment/{sample}.csv", category="Lineage Assignment", subcategory="CSV File Download"),
     conda:
         "../envs/pangolin.yaml"
     log:
