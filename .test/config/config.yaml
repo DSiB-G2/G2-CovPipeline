@@ -1,14 +1,14 @@
-samples:
-    [Demo1]
+samples: config/samples.csv
 
 reference_genome:
     NC_045512.2
 
-adapter:
-    read_1: "GCGAATTTCGACGATCGTTGCATTAACTCGCGAA"
-    read_2: "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+threads: 32
 
 rule_parameters:
+    fastp_pe:
+        adapters: "--adapter_sequence GCGAATTTCGACGATCGTTGCATTAACTCGCGAA  --adapter_sequence_r2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+        extra: "--merge --cut_right --cut_right_window_size 4 --cut_right_mean_quality 20"
     bwa_index:
         algorithm: "bwtsw"
     bwa_mem:

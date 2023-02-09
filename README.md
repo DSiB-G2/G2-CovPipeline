@@ -1,40 +1,59 @@
 # G2-CovPipeline
-Master student project under IKIM-Essen
+Master student project under the supervision of IKIM-Essen
 
-This is Group 2's attempt on creating a Covid Variants pipeline using the Snakemake workflow management system
+A covid variant calling pipeline implemented with Snakemake workflow managment system
 
 ## Running the pipeline
-This section covers how to run the pipeline
+Instructions on how to run the pipeline
 
-### 1) Configure the config files
-Config file is found under config/
+### 1) Connect to IKIM cluster (e.g. c45) via Remote-SSH/Remote Explorer extensions in your IDE
 
-### 2) Install Snakemake
-- [Install Snakemake] (https://snakemake.readthedocs.io/en/stable/getting_started/installation.html)
+### 2) Install Mambaforge, if not already installed
+```
+curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -o Mambaforge-Linux-x86_64.sh
+bash Mambaforge-Linux-x86_64.sh
+```
 
-- activate snakemake
-    ```
-    conda activate snakemake
-    ```
+### 3) Install Snakemake
+```
+conda activate base
+mamba create -c conda-forge -c bioconda --name snakemake snakemake snakedeploy
 
-### 3) Get Data
-- Run retreive_data.py (do it only when you have access to c45)
-    ```
-    cd ~/G2-CovPipeline/data
-    python retrieve_data.py
-    ```
+conda activate snakemake
+```
 
-- Run get_reference.sh
-    ```
-    sh data/reference/get_reference.sh
-    ```
+### 4) Install project
+```
+mkdir -p /G2-CovPipeline
+cd /G2-CovPipeline
+```
+In all following steps, we will assume that you are inside of that directory. 
 
-### 4) Run with snakemake 
-- run snakemake
-    ```
-    snakemake --use-conda --cores 1
-    ```
+Second, run 
+```
+snakedeploy deploy-workflow https://github.com/DSiB-G2/G2-CovPipeline . --tag 1.0
+```
 
+Snakedeploy will create two folders workflow and config. The former contains the deployment of the chosen workflow as a Snakemake module, the latter contains configuration files which will be modified in the next step in order to configure the workflow to your needs. Later, when executing the workflow, Snakemake will automatically find the main Snakefile in the workflow subfolder.
+
+### 5) Retrieve samples via scripts (Only when a connection to c45 is established)
+```
+cd data/
+python retrieve_data.py
+cd reference/
+sh get_reference.sh
+```
+
+### 6) Configure the config files (if necessary)
+- Config file can be found under _config/_
+- Change adapters if necessary (the preset ones are for NimaGen)
+- Change samples.csv file if necessary (filename without "_L001_R1/R2_001.fastq" extension; two paths to paired-end reads)
+
+### 7) Run with snakemake 
+- Make sure the snakemake environment is active
+```
+snakemake --use-conda --cores all
+```
 
 # Resources
 - Pipeline is based on:
@@ -50,6 +69,7 @@ Config file is found under config/
     - [vcftools] (https://vcftools.github.io/man_latest.html)
     - [seqtk] (https://github.com/lh3/seqtk)
     - [pangolin] (https://cov-lineages.org/resources/pangolin.html)
-    - [megahit] (https://github.com/voutcn/megahit)
+    - [metaSPAdes] (https://github.com/ablab/spades)
+    - [quast] (https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/quast.html)
 
 

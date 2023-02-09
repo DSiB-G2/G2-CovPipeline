@@ -1,27 +1,18 @@
-
-configfile: "config/config.yaml"
-
-# get paired end samples name
-SAMPLES = config["samples"]
-
-# get reference genome
-genome = config["reference_genome"]
+include: "rules/common.smk"
 
 
 rule all:
     input:
-        expand("results/{sample}/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
-        expand("results/{sample}/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
+        expand("results/{sample}/ragtag/", sample=SAMPLES),
+        # expand("results/{sample}/mapped/{sample}.sorted.bam.flagstat", sample=SAMPLES),
+        # expand("results/{sample}/mapped/{sample}.sorted.bam.idxstats", sample=SAMPLES),
         expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES),
-        expand("results/{sample}/megahit_assembled/{sample}", sample=SAMPLES),
         expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES)
-        
-        
 
 
 include: "rules/preprocess.smk"
+include: "rules/de-novo.smk"
 include: "rules/aligning.smk"
 include: "rules/calling.smk"
 include: "rules/lineage_assignment.smk"
-include: "rules/denovo.smk"
 include: "rules/generate_report.smk"
