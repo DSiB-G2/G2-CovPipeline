@@ -52,7 +52,7 @@ rule bcf_consensus:
         vcf="results/{sample}/vcf/{sample}.calls.vcf.gz",
         ref=f"data/reference/{genome}.fasta",
     output:
-        "results/{sample}/consensus/{sample}.fa",
+        report("results/{sample}/consensus/{sample}.fa", category="Assembly", subcategory="Polished FASTA File"),
     log:
         "logs/bcf_consensus/{sample}.log",
     conda:
