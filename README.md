@@ -24,8 +24,8 @@ conda activate snakemake
 
 ### 4) Install project
 ```
-mkdir -p /G2-CovPipeline
-cd /G2-CovPipeline
+mkdir -p G2-CovPipeline
+cd G2-CovPipeline
 ```
 In all following steps, we will assume that you are inside of that directory. 
 
