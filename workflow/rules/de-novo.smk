@@ -11,10 +11,10 @@ rule metaspades_assembly:
         k="auto",
     log:
         "logs/spades/{sample}.log",
-    threads: 16
+    threads: config["threads"]
     resources:
-        mem_mem=250000,
-        time=60 * 24,
+        mem_gb=192,
+        # time=60 * 24,
     wrapper:
         "v1.23.1/bio/spades/metaspades"
 
