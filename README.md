@@ -56,6 +56,12 @@ cd ~/G2-CovPipeline
 snakemake --use-conda --cores all
 ```
 
+### 8) Create a report with results
+After the pipeline was executed successfully, you can generate a report.zip file and unpack it to take a look at the generated files within the html_report/report.html
+```
+snakemake --report report.zip && unzip report.zip -d html_report
+```
+
 # Resources
 - Pipeline is based on:
     We made a few changes and used a few different tools/software
