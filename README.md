@@ -23,6 +23,7 @@ conda activate snakemake
 ```
 
 ### 4) Install project
+First create a working directory for our snakemake workflow:
 ```
 mkdir -p G2-CovPipeline
 cd G2-CovPipeline
@@ -36,29 +37,42 @@ snakedeploy deploy-workflow https://github.com/DSiB-G2/G2-CovPipeline . --tag v1
 
 Snakedeploy will create two folders workflow and config. The former contains the deployment of the chosen workflow as a Snakemake module, the latter contains configuration files which will be modified in the next step in order to configure the workflow to your needs. Later, when executing the workflow, Snakemake will automatically find the main Snakefile in the workflow subfolder.
 
-### 5) Retrieve samples via scripts (Only when a connection to c45 is established)
+### 5) Retrieve samples via scripts
+If a connection to the IKIM cluster is established, you may execute the `retrieve_data.py` script below to directly copy the exemplary `.fastq` samples to your data folder.
+If no connection is established, you have the option to customize your input file configuration in the subsequent step.
 ```
 mkdir -p data/reference
 wget -O data/retrieve_data.py https://github.com/DSiB-G2/G2-CovPipeline/blob/main/data/retrieve_data.py?raw=true
 wget -O data/reference/get_reference.sh https://github.com/DSiB-G2/G2-CovPipeline/blob/main/data/reference/get_reference.sh?raw=true
 cd data/
 python retrieve_data.py
-cd reference/
-sh get_reference.sh
-cd ../..
+sh reference/get_reference.sh
+cd ..
+```
+
+Regardless of whether a connection was established or not you may execute the `get_reference.sh` file to retrieve the reference genome from NCBI.
+However, if your project directory name is different to `G2-CovPipeline` you might want to execute the following command directly from your `data/reference` directory, instead of using the shell script: 
+```
+wget "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_045512.2&rettype=fasta" -O NC_045512.2.fasta
 ```
 
 ### 6) Configure the config files (if necessary)
-- Config file can be found under _config/_
-- Change adapters if necessary (the preset ones are for NimaGen)
-- Change samples.csv file if necessary (filename without "_L001_R1/R2_001.fastq" extension; two paths to paired-end reads)
+- The config file can be found under _config/_
+- You may change the adapters if necessary (the preset ones are for NimaGen)
+- You may change the samples.csv file if necessary (filename without "_L001_R1/R2_001.fastq" extension; two paths to paired-end read files relative to the project directory)
+
+When using the samples from step 5) no further adjustments should be necessary.
 
 ### 7) Run with snakemake 
-- Make sure the snakemake environment is active
+Make sure the snakemake environment is active with `conda activate snakemake`
+
+Now run the following code:
 ```
 cd ~/G2-CovPipeline
 snakemake --use-conda --cores all
 ```
+
+Please note that the execution will usually take several minutes, especially at first-time execution due to package installations.
 
 ### 8) Create a report with results
 After the pipeline was executed successfully, you can generate a report.zip file and unpack it to take a look at the generated files within the html_report/report.html
@@ -66,13 +80,15 @@ After the pipeline was executed successfully, you can generate a report.zip file
 snakemake --report report.zip && unzip report.zip -d html_report
 ```
 
+In the `RESULT` section of the report you have access to intermediate files as well as the lineage assignments for each sample under `Results -> Lineage Assignment -> CSV Viewer / CSV File Download`.
+
 # Resources
-- Pipeline is based on:
-    We made a few changes and used a few different tools/software
+- For getting started we mainly used the following tutorial and made alterations whenever sensible:
     [Variant Calling Tutorial] (https://datacarpentry.org/wrangling-genomics/)
 
-- The softwares used in this pipeline utilizes heavily on snakemake wrappers
+- Furthermore, the softwares used in this pipeline utilizes heavily on the following snakemake wrappers as well as Snakemake itself and Mambaforge (Conda):
     - [Snakemake] (https://snakemake.readthedocs.io)
+    - [Mambaforge] (https://github.com/conda-forge/miniforge)
     - [fastp] (https://github.com/OpenGene/fastp)
     - [bwa] (https://bio-bwa.sourceforge.net/)
     - [samtools] (https://github.com/samtools/samtools)
@@ -81,6 +97,7 @@ snakemake --report report.zip && unzip report.zip -d html_report
     - [seqtk] (https://github.com/lh3/seqtk)
     - [pangolin] (https://cov-lineages.org/resources/pangolin.html)
     - [metaSPAdes] (https://github.com/ablab/spades)
-    - [quast] (https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/quast.html)
+    - [RagTag] (https://github.com/malonge/RagTag)
+    - [rust-bio-tools] (https://github.com/rust-bio/rust-bio-tools)
 
 
