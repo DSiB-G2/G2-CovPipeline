@@ -1,0 +1,33 @@
+samples: config/samples.csv
+
+reference_genome:
+    NC_045512.2
+
+threads: 32
+
+rule_parameters:
+    fastp_pe:
+        adapters: "--adapter_sequence GCGAATTTCGACGATCGTTGCATTAACTCGCGAA  --adapter_sequence_r2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+        extra: "--merge --cut_right --cut_right_window_size 4 --cut_right_mean_quality 20"
+    bwa_index:
+        algorithm: "bwtsw"
+    bwa_mem:
+        sorting: "none"
+    samtools_sort:
+        extra: "-m 4G"
+    samtools_index:
+        extra: ""
+    samtools_flagstat:
+        extra: ""
+    samtools_idxstats:
+        extra: ""
+    bcftools_mpileup:
+        uncompressed_bcf: False
+        extra: "--max-depth 100 --min-BQ 15"
+    bcftools_call:
+        caller: "-m"
+        extra: "--ploidy 1 -v"
+    bcftools_index:
+        extra: ""
+    filter_vcf:
+        extra: ""
