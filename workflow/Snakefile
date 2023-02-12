@@ -16,7 +16,7 @@ rule all:
         expand("results/{sample}/megahit_assembled/{sample}", sample=SAMPLES),
         expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES),
         expand("results/{sample}/vcf/{sample}.variants.html", sample=SAMPLES)
-         #expand("results/{sample}/vcf/{sample}.variants.snpeff.html", sample=SAMPLES)
+        
 
 
 include: "rules/preprocess.smk"
@@ -26,4 +26,3 @@ include: "rules/lineage_assignment.smk"
 include: "rules/denovo.smk"
 include: "rules/generate_report.smk"
 include: "rules/vcf_variant_annotation.smk"
-#include: "rules/vcf_variant_annotation_snpeff.smk"
