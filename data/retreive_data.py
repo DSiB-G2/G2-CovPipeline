@@ -2,7 +2,7 @@ import os
 
 path_name = "FastqExamples"
 extension = ".tar.gz"
-target_path = "../../../../local/work/FastqModuleDSiB/" + path_name + extension
+target_path = "../../../../../local/work/FastqModuleDSiB/" + path_name + extension
 
 #copy files
 os.system("cp " + target_path + " .")
