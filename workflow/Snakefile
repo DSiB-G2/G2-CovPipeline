@@ -15,7 +15,13 @@ rule all:
         expand("results/{sample}/lineage_assignment/{sample}.csv", sample=SAMPLES),
         expand("results/{sample}/megahit_assembled/{sample}", sample=SAMPLES),
         expand("workflow/report/{sample}/{sample}_variants.html", sample=SAMPLES),
-        expand("results/{sample}/vcf/{sample}.variants.html", sample=SAMPLES)
+        expand("results/{sample}/vcf/{sample}.variants.annotated.snpsift.vcf.gz", sample=SAMPLES),
+        #expand("results/{sample}/vcf/{sample}.dbnsfp.snpsift.vcf.gz", sample=SAMPLES),
+        expand("results/{sample}/vcf/{sample}.varType.snpsift.vcf.gz.vcf", sample=SAMPLES),
+        #expand("results/{sample}/vcf/{sample}.genesets.snpsift.vcf", sample=SAMPLES),
+        
+        #vep result
+       # expand("results/{sample}/vcf/{sample}.variants.html", sample=SAMPLES)
         
 
 
@@ -25,4 +31,5 @@ include: "rules/calling.smk"
 include: "rules/lineage_assignment.smk"
 include: "rules/denovo.smk"
 include: "rules/generate_report.smk"
-include: "rules/vcf_variant_annotation.smk"
+#include: "rules/vcf_variant_annotation.smk"
+include: "rules/vcf_variant_annotation_snpsift.smk"
